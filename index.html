@@ -1,169 +1,802 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AFITR</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AFITR</title>
+  <meta name="description" content="AFITR is a philosophy-driven brand built around the fork in the road — where technology, civilization, art, and future direction converge." />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-body {
-  background: #0b0f1a;
-  color: white;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.12), transparent 24%),
+        radial-gradient(circle at top right, rgba(168,85,247,0.10), transparent 20%),
+        linear-gradient(180deg, #050814 0%, #08101d 48%, #060b14 100%);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
 
-/* 顶部导航 */
-.nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 16px 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(20px);
-  background: rgba(0,0,0,0.4);
-  z-index: 999;
-}
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
 
-/* 左上角品牌 */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-.logo {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
+    .container {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+    }
 
-.brand-text {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: 1px;
-}
+    .nav {
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      width: min(1200px, calc(100% - 40px));
+      margin: 18px auto 0;
+      padding: 14px 18px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(7, 11, 20, 0.68);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.24);
+    }
 
-/* 右侧菜单 */
-.nav-links {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
 
-.nav-links a {
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.3s;
-}
+    .logo {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 8px;
+      display: block;
+    }
 
-.nav-links a:hover {
-  color: white;
-}
+    .brand-text {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      white-space: nowrap;
+    }
 
-/* 下载按钮 */
-.nav-btn {
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: white;
-  color: black;
-  font-weight: 600;
-}
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-/* 首页大图 */
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+    .nav-links a {
+      color: rgba(255,255,255,0.72);
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
 
-.hero img {
-  width: 60%;
-  max-width: 800px;
-  opacity: 0.9;
-}
+    .nav-links a:hover {
+      color: #ffffff;
+    }
 
-/* 标题 */
-.hero-text {
-  position: absolute;
-  bottom: 120px;
-  text-align: center;
-}
+    .nav-btn {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: #ffffff;
+      font-weight: 600;
+      transition: 0.2s ease;
+    }
 
-.hero-text h1 {
-  font-size: 42px;
-  margin-bottom: 10px;
-}
+    .nav-btn:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,0.12);
+    }
 
-.hero-text p {
-  color: rgba(255,255,255,0.6);
-}
+    .hero {
+      position: relative;
+      padding: 52px 0 30px;
+    }
 
-/* 下载按钮（中间） */
-.download-btn {
-  margin-top: 20px;
-  display: inline-block;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: white;
-  color: black;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 34px;
+      align-items: center;
+      min-height: calc(100vh - 140px);
+    }
 
-.download-btn:hover {
-  transform: scale(1.05);
-}
-</style>
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #dbeafe;
+      background: rgba(59,130,246,0.10);
+      border: 1px solid rgba(59,130,246,0.22);
+    }
+
+    .hero h1 {
+      margin: 20px 0 16px;
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: 0.96;
+      letter-spacing: -2px;
+      max-width: 720px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #ffffff, #c7d2fe, #93c5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 640px;
+      color: #94a3b8;
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: 0.22s ease;
+    }
+
+    .primary-btn {
+      color: #ffffff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 14px 40px rgba(59,130,246,0.24);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 18px 48px rgba(59,130,246,0.32);
+    }
+
+    .secondary-btn {
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(255,255,255,0.09);
+      transform: translateY(-2px);
+    }
+
+    .hero-note {
+      margin-top: 14px;
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 620px;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 640px;
+    }
+
+    .visual-glow-1,
+    .visual-glow-2 {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(70px);
+      z-index: 0;
+    }
+
+    .visual-glow-1 {
+      width: 220px;
+      height: 220px;
+      background: rgba(59,130,246,0.15);
+      top: 8%;
+      right: 8%;
+    }
+
+    .visual-glow-2 {
+      width: 200px;
+      height: 200px;
+      background: rgba(139,92,246,0.14);
+      bottom: 10%;
+      left: 8%;
+    }
+
+    .art-frame {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 560px;
+      padding: 18px;
+      border-radius: 34px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 28px 90px rgba(0,0,0,0.30);
+    }
+
+    .art-frame img {
+      width: 100%;
+      height: 560px;
+      object-fit: cover;
+      border-radius: 24px;
+      filter: brightness(0.72) saturate(0.92);
+    }
+
+    .art-caption {
+      margin-top: 12px;
+      color: #64748b;
+      font-size: 13px;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .section {
+      padding: 58px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin: 0 0 14px;
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      max-width: 820px;
+      margin: 0 auto 38px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .philosophy-card {
+      padding: 26px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.16);
+      transition: 0.22s ease;
+    }
+
+    .philosophy-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .philosophy-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .philosophy-card p {
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .product-panel {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      padding: 28px;
+      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(124,58,237,0.08));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+    }
+
+    .product-visual {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-visual img {
+      width: 100%;
+      max-width: 340px;
+      border-radius: 28px;
+      object-fit: contain;
+      box-shadow: 0 18px 48px rgba(0,0,0,0.24);
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .product-label {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #dbeafe;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.22);
+    }
+
+    .product-info h3 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: -1px;
+    }
+
+    .product-info p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .product-list {
+      margin: 22px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    .product-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #dbeafe;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .product-actions {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .shot-panel {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .shot-card {
+      padding: 18px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+    }
+
+    .shot-card img {
+      width: 100%;
+      border-radius: 22px;
+      object-fit: cover;
+    }
+
+    .shot-copy h3 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -1px;
+    }
+
+    .shot-copy p {
+      margin: 0;
+      color: #94a3b8;
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .shot-bullets {
+      margin-top: 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .shot-bullets div {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #dbeafe;
+      font-size: 15px;
+    }
+
+    .download-box {
+      padding: 36px;
+      border-radius: 32px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+    }
+
+    .download-box h2 {
+      margin: 0 0 12px;
+      font-size: clamp(30px, 4vw, 42px);
+      letter-spacing: -1px;
+    }
+
+    .download-box p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .download-actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .future-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: 0.22s ease;
+    }
+
+    .future-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .future-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .future-card p {
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .footer {
+      width: min(1200px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+      color: #64748b;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .product-panel,
+      .shot-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .philosophy-grid,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: auto;
+      }
+
+      .art-frame img {
+        height: 460px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        padding: 12px 14px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .container {
+        width: min(1200px, calc(100% - 24px));
+      }
+
+      .footer {
+        width: min(1200px, calc(100% - 24px));
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .hero {
+        padding-top: 34px;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.2px;
+      }
+
+      .download-box,
+      .product-panel {
+        padding: 22px;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <nav class="nav">
+    <div class="brand">
+      <img src="afitr-logo.jpg" class="logo" alt="AFITR logo">
+      <div class="brand-text">AFITR</div>
+    </div>
 
-<!-- 顶部 -->
-<nav class="nav">
-  <div class="brand">
-    <img src="afitr-logo.jpg" class="logo">
-    <div class="brand-text">AFITR</div>
-  </div>
+    <div class="nav-links">
+      <a href="#philosophy">Philosophy</a>
+      <a href="#product">Product</a>
+      <a href="#future">Future</a>
+      <a href="#download" class="nav-btn">Download</a>
+    </div>
+  </nav>
 
-  <div class="nav-links">
-    <a href="#">Brand</a>
-    <a href="#">Products</a>
-    <a href="#">Download</a>
-    <a class="nav-btn" href="https://github.com/AfitrPro/Afitrpro.github.io/releases/download/1.0/GeNvAmIXwAAgW-6.jpeg" download>
-      Download
-    </a>
-  </div>
-</nav>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="hero-tag">A Fork in the Road · Brand · Philosophy · Product</div>
+          <h1>
+            Standing at the fork,
+            <br />
+            <span>we choose acceleration.</span>
+          </h1>
+          <p>
+            AFITR stands for <strong>A Fork in the Road</strong> — a symbolic point of choice where civilization, technology,
+            freedom, and future direction converge. It is not a single product, but a philosophy-driven brand
+            built around acceleration, possibility, and the refusal to accept decay as destiny.
+          </p>
 
-<!-- 主视觉 -->
-<section class="hero">
-  <!-- 你的IP大图 -->
-  <img src="afitr-ip.jpeg">
+          <div class="hero-actions">
+            <a class="primary-btn" href="#product">Explore Afitr-T</a>
+            <a class="secondary-btn" href="#download">Download Demo</a>
+          </div>
 
-  <div class="hero-text">
-    <h1>AFITR</h1>
-    <p>Next Generation Real-Time Language Intelligence</p>
+          <div class="hero-note">
+            AFITR is the brand. Afitr-T is the first visible product branch — a real-time speech translation experience built for speed, clarity, and human-like communication.
+          </div>
+        </div>
 
-    <!-- 下载 -->
-    <a class="download-btn"
-       href="https://github.com/AfitrPro/Afitrpro.github.io/releases/download/1.0/GeNvAmIXwAAgW-6.jpeg"
-       download>
-       Download Afitr-T
-    </a>
-  </div>
-</section>
+        <div class="hero-visual">
+          <div class="visual-glow-1"></div>
+          <div class="visual-glow-2"></div>
 
+          <div class="art-frame">
+            <img src="afitr-ip.jpeg" alt="AFITR brand artwork">
+            <div class="art-caption">AFITR brand artwork — present, contemplative, and deliberately restrained.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="philosophy">
+      <div class="container">
+        <h2 class="section-title">The Philosophy of AFITR</h2>
+        <p class="section-subtitle">
+          AFITR is a cultural and philosophical brand system. It exists at the intersection of art, technology, crypto culture,
+          future civilization thinking, and the question of what humanity chooses when standing at its decisive fork.
+        </p>
+
+        <div class="philosophy-grid">
+          <div class="philosophy-card">
+            <h3>Choice</h3>
+            <p>
+              AFITR begins with a fork in the road: the idea that history is not passive. Civilization moves according to decisions,
+              and every decision opens a different future.
+            </p>
+          </div>
+
+          <div class="philosophy-card">
+            <h3>Acceleration</h3>
+            <p>
+              AFITR rejects stagnation. It aligns with acceleration, expansion, freedom, multi-planet ambition, and the belief that
+              technology should widen possibility rather than narrow it.
+            </p>
+          </div>
+
+          <div class="philosophy-card">
+            <h3>Civilization</h3>
+            <p>
+              AFITR is not only aesthetic or symbolic. It extends into tools, products, and systems that reflect a technological and cultural direction worth building.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="product">
+      <div class="container">
+        <h2 class="section-title">Afitr-T</h2>
+        <p class="section-subtitle">
+          Afitr-T is the real-time speech translation product under AFITR — designed to feel fast, useful, precise, and closer to natural human communication.
+        </p>
+
+        <div class="product-panel">
+          <div class="product-visual">
+            <img src="afitr-t-icon.png" alt="Afitr-T icon">
+          </div>
+
+          <div class="product-info">
+            <div class="product-label">Product 01 · Afitr-T</div>
+            <h3>Real-time speech translation.</h3>
+            <p>
+              Afitr-T is built for instant understanding. It focuses on low-latency speech translation, local execution,
+              floating subtitles, and a smoother human-like output experience.
+            </p>
+
+            <ul class="product-list">
+              <li>Real-time speech translation</li>
+              <li>Low latency response</li>
+              <li>Up to 98% translation accuracy</li>
+              <li>More human-like speech rendering</li>
+              <li>Local execution</li>
+              <li>Floating subtitle experience</li>
+            </ul>
+
+            <div class="product-actions">
+              <a class="primary-btn" href="#download">Download Afitr-T</a>
+              <a class="secondary-btn" href="#product-shot">See Interface</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="product-shot">
+      <div class="container">
+        <div class="shot-panel">
+          <div class="shot-card">
+            <img src="afitr-t-shot.png" alt="Afitr-T product screenshot">
+          </div>
+
+          <div class="shot-copy">
+            <h3>Built to be seen, not just used.</h3>
+            <p>
+              Afitr-T is not only a translation engine. It is also a visual experience designed for readability, speed,
+              and presence. The interface aims to feel modern, smooth, and calm even under real-time use.
+            </p>
+
+            <div class="shot-bullets">
+              <div>Readable real-time subtitle flow</div>
+              <div>High-clarity floating interface language</div>
+              <div>Designed for practical use, not just technical demonstration</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="download">
+      <div class="container">
+        <div class="download-box">
+          <h2>Download Afitr-T</h2>
+          <p>
+            The current button points to a temporary test release asset. When your official macOS package is ready,
+            you only need to replace the release file and keep the same website structure.
+          </p>
+
+          <div class="download-actions">
+            <a class="primary-btn" href="https://github.com/AfitrPro/Afitrpro.github.io/releases/latest/download/GeNvAmIXwAAgW-6.jpeg">
+              ⬇ Download Demo
+            </a>
+            <a class="secondary-btn" href="#future">See Future Branches</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="future">
+      <div class="container">
+        <h2 class="section-title">Beyond Afitr-T</h2>
+        <p class="section-subtitle">
+          AFITR is meant to expand. Afitr-T is the first visible branch, but not the final shape of the ecosystem.
+          The brand is built to support future products, future tools, and future cultural extensions.
+        </p>
+
+        <div class="future-grid">
+          <div class="future-card">
+            <h3>More Product Branches</h3>
+            <p>
+              AFITR is structured to host more than one tool. New branches can appear without breaking the identity of the brand.
+            </p>
+          </div>
+
+          <div class="future-card">
+            <h3>Art + Utility</h3>
+            <p>
+              Future AFITR products can continue blending usable technology with a colder, more philosophical and artistic visual language.
+            </p>
+          </div>
+
+          <div class="future-card">
+            <h3>Long-Horizon Identity</h3>
+            <p>
+              AFITR is not positioned as a short-term page for one release. It is meant to feel like the first public layer of a larger idea.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 AFITR. All rights reserved.</div>
+    <div>Afitr-T is a product under the AFITR brand.</div>
+  </footer>
 </body>
 </html>
