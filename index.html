@@ -1,62 +1,712 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Afitr</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      background: #0f172a;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,0.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(168,85,247,0.14), transparent 22%),
+        linear-gradient(180deg, #050816 0%, #0b1020 45%, #0a0f1a 100%);
+      color: #ffffff;
     }
-    .container {
-      margin-top: 120px;
+
+    a {
+      text-decoration: none;
     }
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
+
+    .page {
+      width: 100%;
+      overflow-x: hidden;
     }
-    p {
+
+    .nav {
+      width: min(1180px, calc(100% - 32px));
+      margin: 20px auto 0;
+      padding: 16px 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(10, 15, 26, 0.72);
+      backdrop-filter: blur(14px);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 16px;
+      z-index: 20;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.3px;
+    }
+
+    .brand-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      box-shadow: 0 8px 24px rgba(59,130,246,0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    .nav-btn {
+      padding: 10px 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #ffffff;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      width: min(1180px, calc(100% - 32px));
+      margin: 34px auto 0;
+      min-height: calc(100vh - 140px);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 42px;
+      padding: 50px 0 60px;
+    }
+
+    .hero-left {
+      position: relative;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #dbeafe;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.25);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .hero h1 {
+      margin: 22px 0 16px;
+      font-size: clamp(46px, 7vw, 84px);
+      line-height: 0.95;
+      letter-spacing: -2px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(90deg, #ffffff, #93c5fd, #c4b5fd);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 650px;
       color: #94a3b8;
       font-size: 18px;
+      line-height: 1.7;
     }
-    .btn {
-      display: inline-block;
+
+    .hero-actions {
       margin-top: 30px;
-      padding: 15px 30px;
-      background: #3b82f6;
-      color: white;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
     }
-    .btn:hover {
-      background: #2563eb;
+
+    .primary-btn,
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: 0.22s ease;
+    }
+
+    .primary-btn {
+      color: #ffffff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      box-shadow: 0 14px 40px rgba(59,130,246,0.28);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 18px 46px rgba(59,130,246,0.38);
+    }
+
+    .secondary-btn {
+      color: #e2e8f0;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .secondary-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-note {
+      margin-top: 16px;
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .mockup-wrap {
+      position: relative;
+      padding: 22px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.36);
+    }
+
+    .glow-1,
+    .glow-2 {
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(50px);
+      z-index: -1;
+    }
+
+    .glow-1 {
+      width: 180px;
+      height: 180px;
+      background: rgba(59,130,246,0.28);
+      top: -20px;
+      right: 20px;
+    }
+
+    .glow-2 {
+      width: 160px;
+      height: 160px;
+      background: rgba(139,92,246,0.24);
+      bottom: -10px;
+      left: 20px;
+    }
+
+    .window-bar {
+      display: flex;
+      gap: 8px;
+      padding-bottom: 16px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .screen {
+      border-radius: 22px;
+      padding: 22px;
+      background: linear-gradient(180deg, #0b1220, #0f172a);
+      border: 1px solid rgba(255,255,255,0.06);
+      min-height: 420px;
+    }
+
+    .screen-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .screen-title {
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .status-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #dbeafe;
+      background: rgba(59,130,246,0.14);
+      border: 1px solid rgba(59,130,246,0.22);
+    }
+
+    .caption-box,
+    .translation-box {
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .caption-box {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .translation-box {
+      background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(124,58,237,0.12));
+    }
+
+    .label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      margin-bottom: 12px;
+    }
+
+    .caption-line {
+      font-size: 20px;
+      line-height: 1.65;
+      color: #f8fafc;
+    }
+
+    .translation-line {
+      font-size: 19px;
+      line-height: 1.65;
+      color: #dbeafe;
+    }
+
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-card {
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .mini-card span {
+      color: #94a3b8;
+      font-size: 13px;
+    }
+
+    .section {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 42px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 18px;
+      font-size: clamp(30px, 4vw, 44px);
+      letter-spacing: -1px;
+    }
+
+    .section-subtitle {
+      max-width: 740px;
+      margin: 0 auto 38px;
+      text-align: center;
+      color: #94a3b8;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.16);
+      transition: 0.22s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(59,130,246,0.22), rgba(139,92,246,0.18));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 20px;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .highlight {
+      margin-top: 26px;
+      padding: 26px;
+      border-radius: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(124,58,237,0.08));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .highlight h3 {
+      margin: 0 0 10px;
+      font-size: 26px;
+    }
+
+    .highlight p {
+      margin: 0;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .spec-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .spec-item {
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: #dbeafe;
+      font-size: 15px;
+    }
+
+    .download-section {
+      padding-bottom: 80px;
+    }
+
+    .download-box {
+      padding: 34px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+      text-align: center;
+    }
+
+    .download-box h2 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 4vw, 42px);
+    }
+
+    .download-box p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #94a3b8;
+      line-height: 1.8;
+      font-size: 16px;
+    }
+
+    .download-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 34px;
+      color: #64748b;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 28px;
+      }
+
+      .feature-grid,
+      .highlight {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        padding: 14px 16px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        gap: 28px;
+        min-height: auto;
+      }
+
+      .hero h1 {
+        letter-spacing: -1.2px;
+      }
+
+      .section {
+        padding: 32px 0;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mini-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .screen {
+        min-height: auto;
+      }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Afitr</h1>
-    <p>Real-time speech translation software</p>
+  <div class="page">
+    <nav class="nav">
+      <div class="brand">
+        <div class="brand-badge">A</div>
+        <div>Afitr</div>
+      </div>
 
-    <a href="https://raw.githubusercontent.com/AfitrPro/Afitrpro.github.io/main/GeNvAmIXwAAgW-6.jpeg"
-       download
-       style="
-         display: inline-block;
-         margin-top: 30px;
-         padding: 15px 40px;
-         background: #3b82f6;
-         color: white;
-         text-decoration: none;
-         border-radius: 12px;
-         font-size: 18px;
-       ">
-       ⬇️ Download
-    </a>
-</div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+        <a href="#download">Download</a>
+        <a class="nav-btn" href="https://github.com/AfitrPro/Afitrpro.github.io/releases/latest/download/GeNvAmIXwAAgW-6.jpeg">Download Now</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-tag">Realtime · Local · macOS</div>
+        <h1>
+          Realtime speech
+          <br />
+          <span>translation, reimagined.</span>
+        </h1>
+        <p>
+          Afitr is a realtime speech translation experience built for macOS.
+          Fast captions, clean interface, and a focused product design for people
+          who want speech-to-text and translation to feel instant.
+        </p>
+
+        <div class="hero-actions">
+          <a class="primary-btn" href="https://github.com/AfitrPro/Afitrpro.github.io/releases/latest/download/GeNvAmIXwAAgW-6.jpeg">
+            ⬇ Download for macOS
+          </a>
+          <a class="secondary-btn" href="#features">
+            See Features
+          </a>
+        </div>
+
+        <div class="hero-note">
+          Current demo button downloads your test file. Later you only need to replace the link with your .dmg package.
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <div class="mockup-wrap">
+          <div class="window-bar">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+
+          <div class="screen">
+            <div class="screen-top">
+              <div class="screen-title">Afitr Live Window</div>
+              <div class="status-pill">Live</div>
+            </div>
+
+            <div class="caption-box">
+              <div class="label">Speech</div>
+              <div class="caption-line">
+                タオル置いときますね。
+              </div>
+            </div>
+
+            <div class="translation-box">
+              <div class="label">Translation</div>
+              <div class="translation-line">
+                我把毛巾放在这里了。
+              </div>
+            </div>
+
+            <div class="mini-cards">
+              <div class="mini-card">
+                <strong>Low latency</strong>
+                <span>Fast subtitle response</span>
+              </div>
+              <div class="mini-card">
+                <strong>Clean UI</strong>
+                <span>Focused reading comfort</span>
+              </div>
+              <div class="mini-card">
+                <strong>macOS first</strong>
+                <span>Designed for desktop use</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <h2 class="section-title">Built like a real product</h2>
+      <p class="section-subtitle">
+        This version gives your website a cleaner landing page, stronger visual hierarchy,
+        better buttons, better cards, and a more trustworthy product feel.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Realtime Experience</h3>
+          <p>
+            Fast subtitle presentation with a layout that feels more like a polished desktop product page than a simple test page.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3>Speech Translation</h3>
+          <p>
+            Position Afitr as a focused speech translation tool with a product voice that feels clearer and more premium.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3>Desktop First</h3>
+          <p>
+            Designed to present your macOS software with a cleaner interface, better spacing, and stronger visual trust.
+          </p>
+        </div>
+      </div>
+
+      <div class="highlight" id="about">
+        <div>
+          <h3>About Afitr</h3>
+          <p>
+            Afitr is your brand layer. The site should feel like a real software company page from the first second:
+            strong hero area, clear download path, modern cards, and a visual identity people remember.
+          </p>
+        </div>
+
+        <div class="spec-list">
+          <div class="spec-item">Designed for a cleaner first impression</div>
+          <div class="spec-item">Easy to update later inside index.html</div>
+          <div class="spec-item">Download button already wired for direct file download</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section download-section" id="download">
+      <div class="download-box">
+        <h2>Download Afitr</h2>
+        <p>
+          Right now the button downloads your test asset from GitHub Releases. When your real app is ready,
+          keep the same design and only replace the link with your official <code>.dmg</code> package.
+        </p>
+
+        <div class="download-actions">
+          <a class="primary-btn" href="https://github.com/AfitrPro/Afitrpro.github.io/releases/latest/download/GeNvAmIXwAAgW-6.jpeg">
+            ⬇ Download Demo
+          </a>
+          <a class="secondary-btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">
+            Back to Top
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© 2026 Afitr. All rights reserved.</div>
+      <div>Realtime speech translation for macOS.</div>
+    </footer>
+  </div>
 </body>
 </html>
